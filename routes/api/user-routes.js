@@ -11,7 +11,11 @@ router.get('/', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
+<<<<<<< HEAD
   });
+=======
+});
+>>>>>>> feature/password
 
 router.get('/:id', (req, res) => {
   User.findOne({
@@ -47,11 +51,41 @@ router.post('/', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+=======
+router.post('/login', (req, res) => {
+  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(dbUserData => {
+    if (!dbUserData) {
+      res.status(400).json({ message: 'No user with that email address!' });
+      return;
+    }
+
+    const validPassword = dbUserData.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
+      return;
+    }
+
+    res.json({ user: dbUserData, message: 'You are now logged in!' });
+  });
+});
+
+>>>>>>> feature/password
 router.put('/:id', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
 
   // pass in req.body instead to only update what's passed through
   User.update(req.body, {
+<<<<<<< HEAD
+=======
+    individualHooks: true,
+>>>>>>> feature/password
     where: {
       id: req.params.id
     }
@@ -88,4 +122,8 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> feature/password
